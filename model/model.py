@@ -3,7 +3,11 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import os
+import joblib
 
+
+
+curr_dir =  os.path.dirname(os.path.abspath(__file__))
 
 def get_data_path():
     # Get the path to the data directory
@@ -66,6 +70,11 @@ def main():
     scaler = MinMaxScaler()
     X_train_scaled_cols = scaler.fit_transform(X_train[['Time','Amount']])
     X_test_scaled_cols = scaler.transform(X_test[['Time','Amount']])
+
+    # already been excecuted
+    # scalerpk = os.path.join(curr_dir, 'scaler.pkl')
+
+    # joblib.dump(scaler,scalerpk)
 
     X_train[['Time','Amount']] = X_train_scaled_cols
     X_test[['Time','Amount']] = X_test_scaled_cols
