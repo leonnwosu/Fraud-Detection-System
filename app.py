@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -7,6 +8,21 @@ app = Flask(__name__)
 #import scalar.pickle to scale amount and time
 
 import joblib
+
+# test data
+df_test = pd.read_csv('model/X_test.csv')
+df_answer = pd.read_csv('mdoel/y_test.csv')
+
+
+# endpoint to 
+app.route('/getdata',methods = ['GET'])
+def gettest():
+    # get a sample row from the test dataset
+    test = df_test.sample(n=1).to_json(orient='records')[0]
+
+    
+    return jsonify(test)
+
 
 app.route('/predict',methods = ['POST'] )
 def predict():
@@ -24,7 +40,20 @@ def predict():
             data['V28'], data['Amount']]
    
     scaler = joblib.load('model/scalar.pkl')
+
+
+    # load model.pkl 
+    # response = model.predict(feautures)
+
+    # if response is None:
+        # return {message:error with the request},401
     
+    # else if response = 1:
+        # return {message: fraudulant},200
+
+    # return {message: Legit},200 
+
+
 
 
     pass
