@@ -59,7 +59,7 @@ def predict():
     # else if response = 1:
         # return {message: fraudulant},200
 
-    # return {message: Legit},200 
+    # return {message: Legit},200 nnnnn
 
 
 
