@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
 import os
 import joblib
 
@@ -51,6 +53,34 @@ def split_data(df):
     
     return X_train, X_test, y_train, y_test
 
+def train_model(X_train, y_train, X_test, y_test):
+    print("\nTraining Neural Network Model with scikit-learn...\n")
+
+    model = MLPClassifier(
+        hidden_layer_sizes=(32, 16),
+        activation='relu',
+        solver='adam',
+        max_iter=100,
+        random_state=42
+    )
+
+    # Train the model
+    model.fit(X_train, y_train)
+
+    # Evaluate on test data
+    y_pred = model.predict(X_test)
+
+    print("Model Evaluation:")
+    print("Classification Report:\n", classification_report(y_test, y_pred))
+    print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+    # Save the trained model
+    model_path = os.path.join(curr_dir, 'fraud_model_sklearn.pkl')
+    joblib.dump(model, model_path)
+    print(f"\nModel saved to: {model_path}")
+
+    return model
+
 def main():
     # Load the data
     df = load_data()
@@ -72,9 +102,9 @@ def main():
     X_test_scaled_cols = scaler.transform(X_test[['Time','Amount']])
 
     # already been excecuted
-    # scalerpk = os.path.join(curr_dir, 'scaler.pkl')
+    #scalerpk = os.path.join(curr_dir, 'scaler.pkl')
 
-    # joblib.dump(scaler,scalerpk)
+    #joblib.dump(scaler,scalerpk)
 
     X_train[['Time','Amount']] = X_train_scaled_cols
     X_test[['Time','Amount']] = X_test_scaled_cols
@@ -85,6 +115,8 @@ def main():
     X_test.to_csv('X_test.csv', index=False)
     y_train.to_csv('y_train.csv', index=False)
     y_test.to_csv('y_test.csv', index=False)
+
+    model = train_model(X_train, y_train, X_test, y_test)
 
 
 
