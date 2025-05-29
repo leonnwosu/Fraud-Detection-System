@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Predict Template</title>
+    </head>
+    <body class="prediction_body">
+    
+        <div class="top_section">
+        <h1 class="h1_prediction">Results</h1>
+    
+        <a class="prediction_a_tag" href="https://github.com/leonnwosu/Fraud-Detection-System" target="_blank">
+            Source code link here
+        </a>
+    
+        <form method="get" action="/">
+            <button class="get_button_prediction">GET NEW DATA</button>
+        </form>
+        </div>
+    
+        <table class="prediction_table">
+        <thead>
+            <tr>
+            <th>MODEL</th>
+            <th>CONFIDENCE</th>
+            <th>PREDICTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{ show.model }}</td>
+            <td>{{ show.confidence }}</td>
+            <td>{{ show.prediction }}</td>
+            </tr>
+        </tbody>
+        </table>
+    
+    </body>
+</html>

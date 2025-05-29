@@ -119,6 +119,11 @@ def main():
     model = train_model(X_train, y_train, X_test, y_test)
 
 
+    modelpkl = os.path.join(curr_dir,'model.pkl')
+
+    joblib.dump(model,modelpkl)
+
+
 
 
 

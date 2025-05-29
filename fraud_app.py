@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 import numpy as np
 import pandas as pd
 import os
+import json
 
 app = Flask(__name__)
 
@@ -35,7 +36,14 @@ def gettest():
 @app.route('/predict',methods = ['POST'] )
 def predict():
     try:
+
+        # checking of endpoint is not blocked by javascript and content-type
+        print('entering the prediction endpint')
+        print(f'request form : {request.form}')
+
         data = request.get_json()
+
+        print (f'data : {data}')
         # extract features from the data
         features = [data['Time'], data['V1'], data['V2'], data['V3'],
                 data['V4'], data['V5'], data['V6'], data['V7'],
@@ -45,9 +53,14 @@ def predict():
                 data['V20'], data['V21'], data['V22'], data['V23'],
                 data['V24'], data['V25'], data['V26'], data['V27'],
                 data['V28'], data['Amount']]
-    
-        scaler = joblib.load('model/scalar.pkl')
 
+        # get scaler serialized object to mormalize the TIme and Amount object
+        # scaler = joblib.load(os.path.join(curr_dir,'model/scaler.pkl'))
+
+        # scaledcols = scaler.fit_transform([[data['Time'],data['Amount']]])
+
+        # features[0] = scaledcols[0][0]
+        # features[-1] = scaledcols[0][1]
 
         # load fraud_model_sklearn.pkl 
         model = joblib.load(os.path.join(curr_dir, 'model/fraud_model_sklearn.pkl'))
@@ -57,29 +70,28 @@ def predict():
         confidence = model.predict_proba(features_array)[0][int(prediction)]
 
         result = "Fraudulent" if prediction == 1 else "Legit"
-        return jsonify({
+
+        answer = {
             "model" : "Neural Network (MLPClassifier)",
             "prediction": result,
-            "confidence": round(float(confidence), 4)
-        })
+            "confidence": str(round(float(confidence), 4))
+        }
+
+        print(answer)
+
+        return render_template("predict.html", show = answer )
+    
+        # return jsonify({
+        #     "model" : "Neural Network (MLPClassifier)",
+        #     "prediction": result,
+        #     "confidence": round(float(confidence), 4)
+        # })
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
 
 
-
-
-
-
-
-    # if response is None:
-        # return {message:error with the request},401
-    
-    # else if response = 1:
-        # return {message: fraudulant},200
-
-    # return {message: Legit},200 nnnnn
 
 
 

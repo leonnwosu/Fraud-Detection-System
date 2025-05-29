@@ -4,12 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Template</title>
+    <link rel="stylesheet" href="/static/style.css">
 </html>
-<body>
-    <h1>Test Data</h1>
-    <pre>{{ test_data | tojson(indent=2) }}</pre>
+<body class="show_body">
+    <div class="sidebar">
+        <strong>Dataset Dictionary:</strong>
+        <pre class="json_display">{{ test_data | tojson(indent=2) }}</pre>
+    </div>
+
+    <div class="main-content">
+        <h1 class="h1_show_test">Test Data</h1>
+        <div class="data_overview">
+            <p>
+                This dataset, sourced from a <a href="https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud" target="_blank">fraud detection dataset on Kaggle</a>, contains 30 features per transaction. The key components include:
+            </p>
+            <p>
+                <strong>Time:</strong> Represents the elapsed time in seconds between the first transaction in the dataset and the current transaction.
+            </p>
+            <p>
+                <strong>Amount:</strong> The monetary value of the transaction.
+            </p>
+            <p>
+                <strong>V1 to V28:</strong> These are principal components resulting from a Principal Component Analysis (PCA) transformation. 
+                PCA is a statistical technique used to reduce the dimensionality of large datasets while preserving as much variability as possible. 
+                In this context, it helps anonymize sensitive information while retaining patterns important for detecting fraud.
+            </p>
+            <p>
+                To optimize the performance of our machine learning model, the Time and Amount features have been normalized to a 0–1 range, 
+                ensuring consistent feature scaling during training.
+            </p>
+        </div>
+
+        <button class="get_prediction" onclick="sendPrediction()">GET RESULTS</button>
+    </div>
+
+    <script>
+         const testData = JSON.parse('{{ test_data | tojson | safe }}');
+
+        async function sendPrediction() {
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(testData)
+            });
+
+            const resultHTML = await response.text();  // assuming server returns HTML
+            document.open();
+            document.write(resultHTML);
+            document.close();
+        }
+    </script>
+
     
-    <button class="get_button" onclick="window.location.href='/get'">
-        GET RESULTS
-    </button>
 </body>

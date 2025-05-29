@@ -1,5 +1,5 @@
-/* Make the entire page black and center content */
-body {
+/* for the landing page */
+.get_body {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -25,4 +25,172 @@ body {
   .get_button:hover {
     background-color: #0d6efd;
   }
-  
+
+  /* for the show_test page */
+  .show_body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    background-color: #e0dfe4;
+    color: black;
+    padding: 1.5rem;
+    width: 24%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 0.8rem;
+    text-align: left;
+    border-radius: 0 2rem 2rem 0;
+    overflow-y: auto;
+}
+
+.json_display {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: auto;
+    background: transparent;
+    border: none;
+    margin-top: 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+}
+
+.main-content {
+    padding: 2rem 3rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1rem; /* adds space between sidebar and content */
+}
+
+.data_overview p {
+    margin-bottom: 1.25rem;
+    line-height: 1.7;
+}
+
+.data_overview a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.data_overview a:hover {
+    text-decoration: underline;
+}
+
+.get_prediction {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+}
+
+.get_prediction:hover {
+    background-color: #2563eb;
+}
+
+.h1_show_test {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* for the prediction page */
+
+.prediction_body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+}
+
+.h1_prediction {
+    font-size: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pediction_a_tag {
+    font-size: 1.1rem;
+    color: #3b82f6;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+.prediction_a_tag:hover {
+    text-decoration: underline;
+}
+
+.get_button_prediction {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.get_button_prediction:hover {
+    background-color: #2563eb;
+}
+
+.prediction_table {
+    width: 90%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 1rem;
+}
+
+th {
+    font-size: 0.9rem;
+    color: #a1a1a1;
+}
+
+td {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #2c2c2c;
+}
+
+.top_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.top_section .get_button_prediction {
+    margin-top: 1rem;
+}
